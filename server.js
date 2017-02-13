@@ -70,10 +70,10 @@ var start_mqtt = function(address, cache) {
     }
   });
   
-  logger.info('Connecting to mqtt://localhost:1883...');
+  logger.info('Connecting Se/' + address + ' to mqtt://localhost:1883...');
   
   mqtt_to_server.on('connect', function() {
-    logger.info('Connected to mqtt://localhost:1883');
+    logger.info('Connected Se/' + address + ' to mqtt://localhost:1883');
     
     mqtt_to_server.publish('Se/' + address + '/connection', Buffer([1]), { retain: true, qos: 0 });
     
@@ -93,7 +93,7 @@ var start_mqtt = function(address, cache) {
     }
   });
   
-  mqtt_to_server.on('close', () => logger.info('Disconnected from mqtt://localhost:1883'));
+  mqtt_to_server.on('close', () => logger.info('Disconnected Se/' + address + ' from mqtt://localhost:1883'));
   
   mqtt_to_server.on('error', e => logger.error('MQTT client error:', e.toString()));
   
@@ -123,6 +123,8 @@ var onmessage = function(topic, message) {
 ///////////////////////
 
 var skirnir = new skirnir({dir: '/dev', autoscan: true, autoadd: true, baud: nconf.get('baud')});
+
+logger.info('Watching /dev/ttyUSB* and /dev/ttyACM* for Selene devices');
 
 // All packets received from Skirnir are sent through the WebSocket
 skirnir.on('message', function(e) {
