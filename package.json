@@ -21,7 +21,9 @@
     "type": "git",
     "url": "https://github.com/Densaugeo/Selene-relay.git"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "echo \"Cannot run with npm start. Use 'node server.js'\""
+  },
   "config": {},
   "dependencies": {
     "mqtt": "~1.11.0",
